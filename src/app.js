@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const userModel = require('./model/schema.model');
-app.use(cors());
+app.use(cors({
+  origin: "https://roxco.xyz",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.post('/register', async (req, res) => {
