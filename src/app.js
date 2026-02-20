@@ -1,41 +1,26 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const userModel = require('./model/schema.model');
-app.use(cors({
-  origin: "https://roxco.xyz",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+const cookieParser = require('cookie-parser');
+const userSignUpRoute = require('./routes/user.signUp.route');
+const userLoginRoute = require('./routes/user.login.route');
+const userProfileRoute = require('./routes/user.profile.route');
+const homeRoute = require('./routes/home.route');
 
+app.use(cors({
+    origin: "https://roxco.xyz",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
+    
+
+
+app.use(cookieParser());
 app.use(express.json());
 
-app.post('/register', async (req, res) => {
-    try {
-        const { username, msg } = req.body;
-
-        if (!msg) {
-            return res.status(400).json({ message: "msg is required" });
-        }
-
-        await userModel.create({ username, msg });
-
-        res.status(201).json({ message: "Saved successfully" });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error" });
-    }
-});
-
-app.get('/show', async (req, res) => {
-    try {
-        const users = await userModel.find({});
-        res.json(users);   // MUST send array
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching users" });
-    }
-});
-
-
+// Mount routes properly
+app.use('/api/auth', userLoginRoute);
+app.use('/api', userProfileRoute);
+app.use('/api', homeRoute);
+app.use('/api/auth', userSignUpRoute);
 module.exports = app;
