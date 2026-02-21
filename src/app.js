@@ -16,10 +16,13 @@ app.use(cors({
     credentials: true
 }));
     
-
-
 app.use(cookieParser());
 app.use(express.json());
+
+// Health check route
+app.get("/", (req, res) => {
+  res.send("Backend running 🚀");
+});
 
 // Mount routes properly
 app.use('/api/auth', userLoginRoute);
