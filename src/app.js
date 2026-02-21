@@ -8,7 +8,10 @@ const userProfileRoute = require('./routes/user.profile.route');
 const homeRoute = require('./routes/home.route');
 
 app.use(cors({
-    origin: "http://roxco.xyz",
+    origin: [
+        "https://www.roxco.xyz",
+        "https://roxco.xyz"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
