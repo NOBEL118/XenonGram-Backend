@@ -7,6 +7,17 @@ const userLogin = async (req,res) => {
             message : "All fields are required "
         })
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        message: "Please enter a valid email address"
+      });
+    }
+    if (password.length < 6 || password.length > 21) {
+        return res.status(400).json({
+            message: "Password must be between 6 and 21 characters long"
+        });
+    }
     try{
         const registeredUser =  await userModel.findOne({email : email}).select("+password");
         if(!registeredUser){
