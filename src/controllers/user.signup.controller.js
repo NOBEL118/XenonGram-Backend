@@ -18,6 +18,11 @@ const userSignUp = async (req, res) => {
             message: "Password must be between 6 and 21 characters long"
         });
     }
+    if (username.length < 3 || username.length > 30) {
+        return res.status(400).json({
+            message: "Username must be between 3 and 30 characters long"
+        });
+    }
     try {
         const existingUser = await userModel.findOne({ email: email });
         if (existingUser) {
