@@ -62,18 +62,7 @@ cp .env.example .env
 
 Create a `.env` file in the root directory:
 
-```env
-PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/xenongram
-JWT_SECRET=your_super_secret_jwt_key
-JWT_EXPIRES_IN=7d
-NODE_ENV=development
 
-# Optional: if using Cloudinary for media
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
 
 ### Run the Server
 
